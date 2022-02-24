@@ -37,7 +37,9 @@
 
             const body = {id_token: response.credential}
 
-            fetch("http://localhost:8000/api/auth/google", {
+            fetch(window.location.hostname.includes('localhost')
+            ? 'http://localhost:8000/api/auth/google'
+            : 'https://restserver-cursonodee.herokuapp.com/api/auth/google', {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json"
@@ -46,7 +48,6 @@
             })
             .then(resp => resp.json())
             .then(resp => {
-                console.log(resp)
                 localStorage.setItem("correo", resp.usuario.correo)
             })
             .catch(console.warn)
